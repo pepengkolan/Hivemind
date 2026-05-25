@@ -2,11 +2,17 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from .routes import router
+from ..core.database import init_db
 import os
 
 app = FastAPI(title="Hivemind", description="AI Debate Platform — MiMo v2.5 Pro", version="1.0.0")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 app.include_router(router, prefix="/api/v1")
+
+# Init database on startup
+@app.on_event("startup")
+async def startup():
+    init_db()
 
 dashboard_path = os.path.join(os.path.dirname(__file__), "..", "dashboard")
 if os.path.exists(dashboard_path):

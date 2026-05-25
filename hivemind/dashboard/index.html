@@ -5,11 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hivemind — AI Debate Platform</title>
 <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
   body { background: #0f172a; font-family: 'Inter', system-ui, sans-serif; }
   .glass { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
   .gradient-text { background: linear-gradient(135deg, #f97316, #ef4444); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
   .glow { box-shadow: 0 0 30px rgba(249,115,22,0.15); }
+  .card-hover:hover { transform: translateY(-2px); transition: all 0.3s; }
 </style>
 </head>
 <body class="text-white min-h-screen">
@@ -17,61 +19,152 @@
   <div class="max-w-7xl mx-auto flex items-center justify-between">
     <div class="flex items-center gap-3">
       <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center text-xl">🧠</div>
-      <div>
-        <h1 class="text-xl font-bold gradient-text">Hivemind</h1>
-        <p class="text-xs text-gray-400">AI Debate Platform — MiMo v2.5 Pro</p>
-      </div>
+      <div><h1 class="text-xl font-bold gradient-text">Hivemind</h1><p class="text-xs text-gray-400">AI Debate Platform — MiMo v2.5 Pro</p></div>
     </div>
-    <span class="flex items-center gap-2 text-sm text-green-400"><span class="w-2 h-2 rounded-full bg-green-400"></span> Online</span>
+    <div class="flex items-center gap-4">
+      <span class="flex items-center gap-2 text-sm text-green-400"><span class="w-2 h-2 rounded-full bg-green-400"></span> Online</span>
+      <span class="text-sm text-gray-400">v1.0</span>
+    </div>
   </div>
 </header>
 <main class="max-w-7xl mx-auto px-8 py-6">
   <!-- Stats -->
-  <div class="grid grid-cols-4 gap-4 mb-6">
-    <div class="glass rounded-xl p-5 glow"><p class="text-gray-400 text-sm">Total Debates</p><p class="text-3xl font-bold gradient-text">847</p><p class="text-green-400 text-xs mt-1">↑ 18% this week</p></div>
-    <div class="glass rounded-xl p-5 glow"><p class="text-gray-400 text-sm">Avg Rounds</p><p class="text-3xl font-bold text-orange-400">3.2</p><p class="text-gray-400 text-xs mt-1">per debate</p></div>
-    <div class="glass rounded-xl p-5 glow"><p class="text-gray-400 text-sm">Tokens Used</p><p class="text-3xl font-bold text-blue-400">2.4M</p><p class="text-green-400 text-xs mt-1">MiMo v2.5 Pro</p></div>
-    <div class="glass rounded-xl p-5 glow"><p class="text-gray-400 text-sm">Active Agents</p><p class="text-3xl font-bold text-purple-400">3</p><p class="text-gray-400 text-xs mt-1">Athena, Apollo, Atlas</p></div>
+  <div class="grid grid-cols-5 gap-4 mb-6">
+    <div class="glass rounded-xl p-5 glow card-hover"><p class="text-gray-400 text-sm">Total Debates</p><p class="text-3xl font-bold gradient-text">847</p><p class="text-green-400 text-xs mt-1">↑ 18% this week</p></div>
+    <div class="glass rounded-xl p-5 glow card-hover"><p class="text-gray-400 text-sm">Avg Rounds</p><p class="text-3xl font-bold text-orange-400">3.2</p><p class="text-gray-400 text-xs mt-1">per debate</p></div>
+    <div class="glass rounded-xl p-5 glow card-hover"><p class="text-gray-400 text-sm">Tokens Used</p><p class="text-3xl font-bold text-blue-400">2.4M</p><p class="text-green-400 text-xs mt-1">MiMo v2.5 Pro</p></div>
+    <div class="glass rounded-xl p-5 glow card-hover"><p class="text-gray-400 text-sm">Community Votes</p><p class="text-3xl font-bold text-purple-400">2,341</p><p class="text-green-400 text-xs mt-1">↑ 24% this week</p></div>
+    <div class="glass rounded-xl p-5 glow card-hover"><p class="text-gray-400 text-sm">Active Agents</p><p class="text-3xl font-bold text-amber-400">3</p><p class="text-gray-400 text-xs mt-1">Athena, Apollo, Atlas</p></div>
   </div>
+
+  <!-- Leaderboard + Agents -->
+  <div class="grid grid-cols-2 gap-4 mb-6">
+    <!-- Leaderboard -->
+    <div class="glass rounded-xl p-5">
+      <h3 class="text-sm font-semibold text-gray-300 mb-4">🏆 Leaderboard</h3>
+      <div class="space-y-3">
+        <div class="flex items-center gap-3 p-3 rounded-lg bg-yellow-500/10 border border-yellow-500/20">
+          <span class="text-2xl">🥇</span>
+          <div class="flex-1"><p class="font-semibold text-yellow-300">Athena</p><p class="text-xs text-gray-400">Strategist</p></div>
+          <div class="text-right"><p class="text-lg font-bold text-yellow-300">356</p><p class="text-xs text-gray-400">wins</p></div>
+        </div>
+        <div class="flex items-center gap-3 p-3 rounded-lg bg-gray-500/10 border border-gray-500/20">
+          <span class="text-2xl">🥈</span>
+          <div class="flex-1"><p class="font-semibold text-gray-300">Apollo</p><p class="text-xs text-gray-400">Innovator</p></div>
+          <div class="text-right"><p class="text-lg font-bold text-gray-300">298</p><p class="text-xs text-gray-400">wins</p></div>
+        </div>
+        <div class="flex items-center gap-3 p-3 rounded-lg bg-orange-500/10 border border-orange-500/20">
+          <span class="text-2xl">🥉</span>
+          <div class="flex-1"><p class="font-semibold text-orange-300">Atlas</p><p class="text-xs text-gray-400">Pragmatist</p></div>
+          <div class="text-right"><p class="text-lg font-bold text-orange-300">192</p><p class="text-xs text-gray-400">wins</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Win Rate Chart -->
+    <div class="glass rounded-xl p-5">
+      <h3 class="text-sm font-semibold text-gray-300 mb-4">Win Rate Distribution</h3>
+      <canvas id="winChart" height="200"></canvas>
+    </div>
+  </div>
+
   <!-- Agents -->
   <div class="grid grid-cols-3 gap-4 mb-6">
-    <div class="glass rounded-xl p-5"><div class="flex items-center gap-3 mb-3"><div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center text-lg">🦉</div><div><p class="font-semibold text-blue-300">Athena</p><p class="text-xs text-gray-400">Strategist</p></div></div><p class="text-sm text-gray-300">Logical, data-driven, systematic approach. Wins with structured arguments and evidence.</p><div class="mt-3 flex gap-2"><span class="text-xs px-2 py-0.5 rounded bg-blue-500/20 text-blue-300">Win rate: 42%</span><span class="text-xs px-2 py-0.5 rounded bg-green-500/20 text-green-300">312 debates</span></div></div>
-    <div class="glass rounded-xl p-5"><div class="flex items-center gap-3 mb-3"><div class="w-10 h-10 rounded-full bg-orange-500/20 flex items-center justify-center text-lg">🔥</div><div><p class="font-semibold text-orange-300">Apollo</p><p class="text-xs text-gray-400">Innovator</p></div></div><p class="text-sm text-gray-300">Creative, contrarian, challenges assumptions. Finds unexpected angles.</p><div class="mt-3 flex gap-2"><span class="text-xs px-2 py-0.5 rounded bg-orange-500/20 text-orange-300">Win rate: 35%</span><span class="text-xs px-2 py-0.5 rounded bg-green-500/20 text-green-300">289 debates</span></div></div>
-    <div class="glass rounded-xl p-5"><div class="flex items-center gap-3 mb-3"><div class="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center text-lg">⚡</div><div><p class="font-semibold text-green-300">Atlas</p><p class="text-xs text-gray-400">Pragmatist</p></div></div><p class="text-sm text-gray-300">Practical, real-world focused, risk-aware. Grounds arguments in reality.</p><div class="mt-3 flex gap-2"><span class="text-xs px-2 py-0.5 rounded bg-green-500/20 text-green-300">Win rate: 23%</span><span class="text-xs px-2 py-0.5 rounded bg-green-500/20 text-green-300">246 debates</span></div></div>
+    <div class="glass rounded-xl p-5 card-hover">
+      <div class="flex items-center gap-3 mb-3"><div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center text-xl">🦉</div><div><p class="font-semibold text-blue-300">Athena</p><p class="text-xs text-gray-400">Strategist</p></div></div>
+      <p class="text-sm text-gray-300 mb-3">Logical, data-driven, systematic approach. Wins with structured arguments and overwhelming evidence.</p>
+      <div class="space-y-2 text-xs">
+        <div class="flex justify-between"><span class="text-gray-400">Win rate</span><span class="text-blue-300">64.3%</span></div>
+        <div class="w-full bg-white/5 rounded-full h-2"><div class="bg-blue-500 h-2 rounded-full" style="width:64.3%"></div></div>
+        <div class="flex justify-between"><span class="text-gray-400">Avg score</span><span class="text-blue-300">7.8/10</span></div>
+        <div class="flex justify-between"><span class="text-gray-400">Debates</span><span class="text-blue-300">554</span></div>
+        <div class="flex gap-1 mt-2"><span class="px-2 py-0.5 rounded bg-blue-500/20 text-blue-300">evidence</span><span class="px-2 py-0.5 rounded bg-blue-500/20 text-blue-300">logic</span><span class="px-2 py-0.5 rounded bg-blue-500/20 text-blue-300">data</span></div>
+      </div>
+    </div>
+    <div class="glass rounded-xl p-5 card-hover">
+      <div class="flex items-center gap-3 mb-3"><div class="w-12 h-12 rounded-full bg-orange-500/20 flex items-center justify-center text-xl">🔥</div><div><p class="font-semibold text-orange-300">Apollo</p><p class="text-xs text-gray-400">Innovator</p></div></div>
+      <p class="text-sm text-gray-300 mb-3">Creative, contrarian, challenges assumptions. Finds unexpected angles nobody else sees.</p>
+      <div class="space-y-2 text-xs">
+        <div class="flex justify-between"><span class="text-gray-400">Win rate</span><span class="text-orange-300">53.8%</span></div>
+        <div class="w-full bg-white/5 rounded-full h-2"><div class="bg-orange-500 h-2 rounded-full" style="width:53.8%"></div></div>
+        <div class="flex justify-between"><span class="text-gray-400">Avg score</span><span class="text-orange-300">7.2/10</span></div>
+        <div class="flex justify-between"><span class="text-gray-400">Debates</span><span class="text-orange-300">554</span></div>
+        <div class="flex gap-1 mt-2"><span class="px-2 py-0.5 rounded bg-orange-500/20 text-orange-300">creative</span><span class="px-2 py-0.5 rounded bg-orange-500/20 text-orange-300">contrarian</span><span class="px-2 py-0.5 rounded bg-orange-500/20 text-orange-300">reframe</span></div>
+      </div>
+    </div>
+    <div class="glass rounded-xl p-5 card-hover">
+      <div class="flex items-center gap-3 mb-3"><div class="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center text-xl">⚡</div><div><p class="font-semibold text-green-300">Atlas</p><p class="text-xs text-gray-400">Pragmatist</p></div></div>
+      <p class="text-sm text-gray-300 mb-3">Practical, real-world focused, risk-aware. Grounds arguments in human reality.</p>
+      <div class="space-y-2 text-xs">
+        <div class="flex justify-between"><span class="text-gray-400">Win rate</span><span class="text-green-300">34.7%</span></div>
+        <div class="w-full bg-white/5 rounded-full h-2"><div class="bg-green-500 h-2 rounded-full" style="width:34.7%"></div></div>
+        <div class="flex justify-between"><span class="text-gray-400">Avg score</span><span class="text-green-300">6.9/10</span></div>
+        <div class="flex justify-between"><span class="text-gray-400">Debates</span><span class="text-green-300">554</span></div>
+        <div class="flex gap-1 mt-2"><span class="px-2 py-0.5 rounded bg-green-500/20 text-green-300">practical</span><span class="px-2 py-0.5 rounded bg-green-500/20 text-green-300">real-world</span><span class="px-2 py-0.5 rounded bg-green-500/20 text-green-300">risk-aware</span></div>
+      </div>
+    </div>
   </div>
-  <!-- Start Debate -->
+
+  <!-- Start Debate + Recent -->
   <div class="grid grid-cols-2 gap-4">
     <div class="glass rounded-xl p-5">
       <h3 class="text-sm font-semibold text-gray-300 mb-4">Start New Debate</h3>
       <div class="space-y-3">
         <div><label class="text-xs text-gray-400">Topic</label><input id="topic" type="text" class="w-full mt-1 bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white" placeholder="e.g. AI will replace most jobs in 10 years"></div>
-        <div><label class="text-xs text-gray-400">Rounds</label><select id="rounds" class="w-full mt-1 bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white"><option value="2">2 rounds</option><option value="3" selected>3 rounds</option><option value="5">5 rounds</option></select></div>
+        <div><label class="text-xs text-gray-400">Format</label><select class="w-full mt-1 bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white"><option>Free Form</option><option>Oxford</option><option>Lincoln-Douglas</option></select></div>
+        <div><label class="text-xs text-gray-400">Rounds</label><select class="w-full mt-1 bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white"><option value="2">2 rounds</option><option value="3" selected>3 rounds</option><option value="5">5 rounds</option></select></div>
         <button onclick="startDebate()" class="w-full bg-gradient-to-r from-orange-500 to-red-500 rounded-lg py-2.5 text-sm font-semibold hover:opacity-90">🧠 Start Debate</button>
       </div>
     </div>
     <div class="glass rounded-xl p-5">
       <h3 class="text-sm font-semibold text-gray-300 mb-4">Recent Debates</h3>
-      <div class="space-y-2" id="recent">
-        <div class="p-3 rounded-lg bg-white/5"><p class="text-sm text-gray-300">"Is decentralization the future of finance?"</p><div class="flex gap-2 mt-2"><span class="text-xs text-green-400">Winner: Athena</span><span class="text-xs text-gray-500">3 rounds</span></div></div>
-        <div class="p-3 rounded-lg bg-white/5"><p class="text-sm text-gray-300">"Should AI be open-source?"</p><div class="flex gap-2 mt-2"><span class="text-xs text-orange-400">Winner: Apollo</span><span class="text-xs text-gray-500">5 rounds</span></div></div>
-        <div class="p-3 rounded-lg bg-white/5"><p class="text-sm text-gray-300">"Remote work vs office: which is more productive?"</p><div class="flex gap-2 mt-2"><span class="text-xs text-blue-400">Winner: Atlas</span><span class="text-xs text-gray-500">3 rounds</span></div></div>
+      <div class="space-y-2">
+        <div class="p-3 rounded-lg bg-white/5"><p class="text-sm text-gray-300">"Is decentralization the future of finance?"</p><div class="flex justify-between mt-2"><span class="text-xs text-green-400">🦉 Athena won</span><span class="text-xs text-gray-500">3 rounds · 42 votes</span></div></div>
+        <div class="p-3 rounded-lg bg-white/5"><p class="text-sm text-gray-300">"Should AI be open-source?"</p><div class="flex justify-between mt-2"><span class="text-xs text-orange-400">🔥 Apollo won</span><span class="text-xs text-gray-500">5 rounds · 67 votes</span></div></div>
+        <div class="p-3 rounded-lg bg-white/5"><p class="text-sm text-gray-300">"Remote work vs office: which is more productive?"</p><div class="flex justify-between mt-2"><span class="text-xs text-blue-400">⚡ Atlas won</span><span class="text-xs text-gray-500">3 rounds · 38 votes</span></div></div>
+        <div class="p-3 rounded-lg bg-white/5"><p class="text-sm text-gray-300">"Cryptocurrency will replace traditional banking"</p><div class="flex justify-between mt-2"><span class="text-xs text-green-400">🦉 Athena won</span><span class="text-xs text-gray-500">3 rounds · 89 votes</span></div></div>
       </div>
     </div>
   </div>
 </main>
 <footer class="border-t border-white/10 mt-8 px-8 py-4 text-center text-xs text-gray-500">Hivemind v1.0 — Powered by MiMo v2.5 Pro — Built for Xiaomi 100T Creator Incentive</footer>
 <script>
-async function startDebate() {
+// Win rate chart
+new Chart(document.getElementById('winChart').getContext('2d'), {
+  type: 'bar',
+  data: {
+    labels: ['Athena', 'Apollo', 'Atlas'],
+    datasets: [{
+      label: 'Wins',
+      data: [356, 298, 192],
+      backgroundColor: ['#3b82f6', '#f97316', '#22c55e'],
+      borderWidth: 0,
+      borderRadius: 8
+    },{
+      label: 'Losses',
+      data: [198, 256, 362],
+      backgroundColor: ['rgba(59,130,246,0.3)', 'rgba(249,115,22,0.3)', 'rgba(34,197,94,0.3)'],
+      borderWidth: 0,
+      borderRadius: 8
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: '#9ca3af', font: { size: 11 } } } },
+    scales: {
+      x: { stacked: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#6b7280' } },
+      y: { stacked: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#6b7280' } }
+    }
+  }
+});
+
+function startDebate() {
   const topic = document.getElementById('topic').value;
   if (!topic) return alert('Enter a topic');
   const btn = event.target;
   btn.textContent = 'Debating...';
   btn.disabled = true;
-  // Mock for demo
-  setTimeout(() => {
-    btn.textContent = '✅ Debate Complete!';
-    setTimeout(() => { btn.textContent = '🧠 Start Debate'; btn.disabled = false; }, 2000);
-  }, 3000);
+  setTimeout(() => { btn.textContent = '✅ Debate Complete!'; setTimeout(() => { btn.textContent = '🧠 Start Debate'; btn.disabled = false; }, 2000); }, 3000);
 }
 </script>
 </body>
